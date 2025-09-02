@@ -49,14 +49,13 @@ if st.button("🔍 Analyze"):
     else:
         st.warning("⚠️ Please upload a resume and paste a job description.")
 import email_utils  # whichever file you placed your function in
+   if "error" not in result:
+     st.markdown("### Email Results to Yourself")
 
-if "error" not in result:
-    st.markdown("### Email Results to Yourself")
+     user_email = st.text_input("Enter your email to receive the report:")
 
-    user_email = st.text_input("Enter your email to receive the report:")
-
-    if st.button("📧 Send Email"):
-        report = f"""AI Career Advisor Results
+   if st.button("📧 Send Email"):
+     report = f"""AI Career Advisor Results
 Match Score: {result.get("match_score")}
 Missing Skills: {', '.join(result.get("missing_skills", []))}
 Recommendations: {', '.join(result.get('recommendations', []))}
