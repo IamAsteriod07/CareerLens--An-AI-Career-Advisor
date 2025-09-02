@@ -15,7 +15,7 @@ load_dotenv()
 groq_api_key = os.getenv("groq_api_key")
 
 # Initialize Groq LLM
-llm = ChatGroq(temperature=0, model_name="llama3-8b-8192", api_key=groq_api_key)
+llm = ChatGroq(temperature=0, model_name="gemma2-9b-it", api_key=groq_api_key)
 
 # Prompt template for resume and job description analysis
 template = """
