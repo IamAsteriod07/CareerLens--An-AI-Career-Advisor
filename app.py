@@ -51,7 +51,7 @@ if st.button("🔍 Analyze"):
         st.warning("⚠️ Please upload a resume and paste a job description.")
 import email_utils  # whichever file you placed your function in
 
-if "error" not in result:
+if result is not None and "error" not in result
     st.markdown("### Email Results to Yourself")
     user_email = st.text_input("Enter your email to receive the report:")
     if st.button("📧 Send Email"):
