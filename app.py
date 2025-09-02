@@ -12,6 +12,7 @@ uploaded_resume = st.file_uploader("📄 Upload Resume (PDF)", type=["pdf"])
 # Job description input
 jd_text = st.text_area("🧾 Paste Job Description", height=200)
 
+result = None  # Initialize result variable
 # Auto-run with button interaction
 if st.button("🔍 Analyze"):
     if uploaded_resume and jd_text.strip():
