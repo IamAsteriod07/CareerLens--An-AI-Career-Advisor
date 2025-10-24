@@ -1,8 +1,8 @@
 # main_mod.py
 
 # Importing the necessary libraries
-from langchain_core.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 from langchain_groq import ChatGroq
 from langchain_community.document_loaders import PyMuPDFLoader
 import os
@@ -48,13 +48,10 @@ Do NOT include markdown, triple backticks, or explanations — just raw JSON out
 """
 
 # Create a prompt template
-prompt = PromptTemplate(
-    input_variables=["resume_text", "jd_text"],
-    template=template
-)
+prompt = ChatPromptTemplate.from_template(template)
 
 # Create LLM chain with the prompt
-chain = LLMChain(llm=llm, prompt=prompt)
+chain = prompt | llm | StrOutputParser()
 
 # Extract text content from PDF resume
 def extract_resume_text(uploaded_file): # Renamed from pdf_path → uploaded_file
@@ -74,8 +71,8 @@ def analyze_resume_vs_jd(resume_path, jd_text):
     response = chain.invoke({"resume_text": resume_text, "jd_text": jd_text})
 
     # Ensure response is a string
-    if isinstance(response, dict) and "text" in response:
-        response_text = response["text"]
+    if isinstance(response, str):
+        response_text = response
     else:
         response_text = str(response)
 
