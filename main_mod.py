@@ -1,10 +1,10 @@
 # main_mod.py
 
 # Importing the necessary libraries
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain_groq import ChatGroq
-from langchain.document_loaders import PyMuPDFLoader
+from langchain_community.document_loaders import PyMuPDFLoader
 import os
 from dotenv import load_dotenv
 import json, re, ast
