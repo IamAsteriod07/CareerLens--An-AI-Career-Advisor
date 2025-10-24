@@ -12,6 +12,7 @@ uploaded_resume = st.file_uploader("📄 Upload Resume (PDF)", type=["pdf"])
 # Job description input
 jd_text = st.text_area("🧾 Paste Job Description", height=200)
 
+result = None  # Initialize result variable
 # Auto-run with button interaction
 if st.button("🔍 Analyze"):
     if uploaded_resume and jd_text.strip():
@@ -50,11 +51,9 @@ if st.button("🔍 Analyze"):
         st.warning("⚠️ Please upload a resume and paste a job description.")
 import email_utils  # whichever file you placed your function in
 
-if "error" not in result:
+if result is not None and "error" not in result:
     st.markdown("### Email Results to Yourself")
-
     user_email = st.text_input("Enter your email to receive the report:")
-
     if st.button("📧 Send Email"):
         report = f"""AI Career Advisor Results
 Match Score: {result.get("match_score")}
@@ -70,12 +69,10 @@ Career Advice: {result.get('feedback')}
         #     subject="Your AI Career Advisor Results",
         #     body=report
         # )
-
         # SendGrid version:
         feedback = email_utils.send_email_sendgrid(
             receiver_email=user_email,
             subject="Your AI Career Advisor Results",
             body=report
         )
-
         st.info(feedback)
